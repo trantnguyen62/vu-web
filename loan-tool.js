@@ -12,6 +12,22 @@ function initLoanTool() {
     document.getElementById('loan-export-csv')?.addEventListener('click', exportLoanToCSV);
     document.getElementById('loan-export-pdf')?.addEventListener('click', exportLoanToPDF);
 
+    // Share and Print buttons
+    document.getElementById('share-results')?.addEventListener('click', () => {
+        if (!loanData) { showNotification('Calculate loan first', 'error'); return; }
+        const url = ShareSave.generateShareUrl('loan-tool', {
+            'loan-amount': loanData.principal,
+            'interest-rate': loanData.annualRate,
+            'loan-term': loanData.years,
+            'extra-payment': loanData.extraPayment
+        });
+        ShareSave.copyToClipboard(url);
+    });
+
+    document.getElementById('print-results')?.addEventListener('click', () => {
+        PrintHelper.print('main-content');
+    });
+
     // Scenario buttons
     document.querySelectorAll('.scenario-btn').forEach(btn => {
         btn.addEventListener('click', () => {

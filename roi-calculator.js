@@ -16,6 +16,26 @@ function initROICalculator() {
 
     document.getElementById('roi-export-csv')?.addEventListener('click', exportROIToCSV);
     document.getElementById('roi-export-pdf')?.addEventListener('click', exportROIToPDF);
+
+    // Share and Print buttons
+    document.getElementById('share-results')?.addEventListener('click', () => {
+        if (!roiData) { showNotification('Calculate ROI first', 'error'); return; }
+        const url = ShareSave.generateShareUrl('roi-calculator', {
+            'purchase-price': roiData.purchasePrice,
+            'down-payment': roiData.downPayment / roiData.purchasePrice * 100,
+            'closing-costs': roiData.closingCosts,
+            'rehab-costs': roiData.rehabCosts,
+            'monthly-rent': roiData.monthlyRent,
+            'vacancy-rate': roiData.vacancyRate,
+            'monthly-expenses': roiData.monthlyExpenses,
+            'mortgage-payment': roiData.mortgagePayment
+        });
+        ShareSave.copyToClipboard(url);
+    });
+
+    document.getElementById('print-results')?.addEventListener('click', () => {
+        PrintHelper.print('main-content');
+    });
 }
 
 function calculateROI() {

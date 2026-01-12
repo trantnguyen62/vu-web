@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Property Tax Comparison Tool - Compare your Cook County property assessment with nearby comparable properties using interactive maps.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+
     <title>Property Tax Comparison Tool | Cook County Tax Compare</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -133,7 +138,7 @@
                     <div class="sidebar-card" id="results-summary">
                         <h3>Analysis Results</h3>
                         <div class="summary-item">
-                            <span class="summary-label">Your Taxable Value</span>
+                            <span class="summary-label" data-tooltip="assessed-value">Your Taxable Value</span>
                             <span class="summary-value" id="your-value">$0</span>
                         </div>
                         <div class="summary-item">
@@ -178,7 +183,7 @@
                     </div>
                 </div>
 
-                <div class="tool-main">
+                <div class="tool-main" id="main-content">
                     <div class="map-container" id="property-map">
                         <div class="map-placeholder" id="map-placeholder">
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -282,6 +287,7 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="components.js"></script>
     <script src="app.js"></script>
     <script src="property-tax.js"></script>
 </body>
