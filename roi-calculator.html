@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Real Estate ROI Calculator - Calculate Net Operating Income, CAP Rate, and Cash-on-Cash returns for investment properties.">
+    <title>Real Estate ROI Calculator | Cook County Tax Compare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 21H21M4 18H20M6 18V10M10 18V10M14 18V10M18 18V10M12 3L21 10H3L12 3Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <span>Cook County<br><span class="logo-accent">Tax Compare</span></span>
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="property-tax.html">Property Tax Tool</a></li>
+                <li><a href="roi-calculator.html" class="active">ROI Calculator</a></li>
+                <li><a href="loan-tool.html">Loan Tool</a></li>
+                <li><a href="index.html#deadlines">Appeal Deadlines</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" />
+                        <path
+                            d="M12 2V4M12 20V22M4 12H2M6.31 6.31L4.9 4.9M17.69 6.31L19.1 4.9M6.31 17.69L4.9 19.1M17.69 17.69L19.1 19.1M22 12H20"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <a href="index.html#contact" class="cta-btn">
+                    <span>Get Help</span>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <ul class="mobile-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="property-tax.html">Property Tax Tool</a></li>
+                <li><a href="roi-calculator.html" class="active">ROI Calculator</a></li>
+                <li><a href="loan-tool.html">Loan Tool</a></li>
+                <li><a href="index.html#deadlines">Appeal Deadlines</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>ROI Calculator</span>
+            </div>
+            <h1>Real Estate ROI Calculator</h1>
+            <p>Calculate your potential return on investment for any rental property. Analyze NOI, CAP Rate,
+                Cash-on-Cash returns, and more.</p>
+        </div>
+    </section>
+
+    <!-- ROI Calculator Tool -->
+    <section class="tool-page">
+        <div class="container">
+            <div class="roi-layout">
+                <div class="roi-inputs-section">
+                    <div class="sidebar-card">
+                        <h3>Property Details</h3>
+                        <div class="input-group">
+                            <label for="purchase-price">Purchase Price ($)</label>
+                            <input type="number" id="purchase-price" value="300000" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="down-payment">Down Payment (%)</label>
+                            <input type="number" id="down-payment" value="20" min="0" max="100">
+                        </div>
+                        <div class="input-group">
+                            <label for="closing-costs">Closing Costs ($)</label>
+                            <input type="number" id="closing-costs" value="8000" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="rehab-costs">Renovation/Rehab ($)</label>
+                            <input type="number" id="rehab-costs" value="0" min="0">
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Income & Expenses</h3>
+                        <div class="input-group">
+                            <label for="monthly-rent">Monthly Rent ($)</label>
+                            <input type="number" id="monthly-rent" value="2500" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="vacancy-rate">Vacancy Rate (%)</label>
+                            <input type="number" id="vacancy-rate" value="5" min="0" max="100">
+                        </div>
+                        <div class="input-group">
+                            <label for="monthly-expenses">Monthly Operating Expenses ($)</label>
+                            <input type="number" id="monthly-expenses" value="500" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="mortgage-payment">Monthly Mortgage Payment ($)</label>
+                            <input type="number" id="mortgage-payment" value="1200" min="0">
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Export Results</h3>
+                        <button class="btn btn-secondary btn-full" id="roi-export-csv">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Download CSV
+                        </button>
+                        <button class="btn btn-secondary btn-full" id="roi-export-pdf">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Download PDF Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="roi-results-section">
+                    <div class="result-card-primary">
+                        <div class="result-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L14.09 8.26L21 12L14.09 15.74L12 22L9.91 15.74L3 12L9.91 8.26L12 2Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <span class="result-label">Cash on Cash Return</span>
+                        <span class="result-value" id="coc-return">0%</span>
+                        <span class="result-description">Annual return on your invested capital</span>
+                    </div>
+
+                    <div class="roi-results-grid">
+                        <div class="result-card">
+                            <span class="result-label">Net Operating Income (NOI)</span>
+                            <span class="result-value" id="noi-value">$0/yr</span>
+                        </div>
+                        <div class="result-card">
+                            <span class="result-label">CAP Rate</span>
+                            <span class="result-value" id="cap-rate">0%</span>
+                        </div>
+                        <div class="result-card">
+                            <span class="result-label">Annual Cash Flow</span>
+                            <span class="result-value" id="cash-flow">$0/yr</span>
+                        </div>
+                        <div class="result-card">
+                            <span class="result-label">Monthly Cash Flow</span>
+                            <span class="result-value" id="monthly-cash-flow">$0/mo</span>
+                        </div>
+                        <div class="result-card">
+                            <span class="result-label">Break-Even Rent</span>
+                            <span class="result-value" id="break-even-rent">$0/mo</span>
+                        </div>
+                        <div class="result-card">
+                            <span class="result-label">Total Cash Invested</span>
+                            <span class="result-value" id="total-invested">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="roi-breakdown">
+                        <h3>Investment Breakdown</h3>
+                        <div class="breakdown-chart" id="breakdown-chart">
+                            <canvas id="roi-canvas"></canvas>
+                        </div>
+                        <div class="breakdown-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: var(--primary);"></span>
+                                <span>Down Payment</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: var(--accent);"></span>
+                                <span>Closing Costs</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: var(--warning);"></span>
+                                <span>Rehab Costs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roi-insights">
+                        <h3>Investment Insights</h3>
+                        <div class="insight-cards">
+                            <div class="insight-card good" id="insight-coc">
+                                <div class="insight-icon">✓</div>
+                                <div class="insight-content">
+                                    <h4>Cash on Cash Return</h4>
+                                    <p>Your return is above the 8% benchmark for rental properties.</p>
+                                </div>
+                            </div>
+                            <div class="insight-card good" id="insight-cap">
+                                <div class="insight-icon">✓</div>
+                                <div class="insight-content">
+                                    <h4>CAP Rate Analysis</h4>
+                                    <p>Your CAP rate indicates a solid investment opportunity.</p>
+                                </div>
+                            </div>
+                            <div class="insight-card" id="insight-cashflow">
+                                <div class="insight-icon">💡</div>
+                                <div class="insight-content">
+                                    <h4>Cash Flow</h4>
+                                    <p>Positive cash flow means the property pays for itself.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 21H21M4 18H20M6 18V10M10 18V10M14 18V10M18 18V10M12 3L21 10H3L12 3Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <span>Cook County<br><span class="logo-accent">Tax Compare</span></span>
+                    </a>
+                    <p>Our mission is to lower your Cook County property taxes.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Tools</h4>
+                        <ul>
+                            <li><a href="property-tax.html">Property Tax Tool</a></li>
+                            <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                            <li><a href="loan-tool.html">Loan Tool</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><a href="tel:773-715-3476">773-715-3476</a></li>
+                            <li><a href="mailto:vu@cookcountytaxcompare.com">vu@cookcountytaxcompare.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cook County Tax Compare LLC. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="roi-calculator.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Property Tax Comparison Tool - Compare your Cook County property assessment with nearby comparable properties using interactive maps.">
+    <title>Property Tax Comparison Tool | Cook County Tax Compare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 21H21M4 18H20M6 18V10M10 18V10M14 18V10M18 18V10M12 3L21 10H3L12 3Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <span>Cook County<br><span class="logo-accent">Tax Compare</span></span>
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="property-tax.html" class="active">Property Tax Tool</a></li>
+                <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                <li><a href="loan-tool.html">Loan Tool</a></li>
+                <li><a href="index.html#deadlines">Appeal Deadlines</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" />
+                        <path
+                            d="M12 2V4M12 20V22M4 12H2M6.31 6.31L4.9 4.9M17.69 6.31L19.1 4.9M6.31 17.69L4.9 19.1M17.69 17.69L19.1 19.1M22 12H20"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <a href="index.html#contact" class="cta-btn">
+                    <span>Get Help</span>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <ul class="mobile-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="property-tax.html" class="active">Property Tax Tool</a></li>
+                <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                <li><a href="loan-tool.html">Loan Tool</a></li>
+                <li><a href="index.html#deadlines">Appeal Deadlines</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Property Tax Tool</span>
+            </div>
+            <h1>Property Tax Comparison Tool</h1>
+            <p>Enter your address to see how your property's taxable value compares to similar properties nearby. Our
+                interactive map shows comparable properties within your selected radius.</p>
+        </div>
+    </section>
+
+    <!-- Property Tax Tool -->
+    <section class="tool-page">
+        <div class="container">
+            <div class="tool-layout">
+                <div class="tool-sidebar">
+                    <div class="sidebar-card">
+                        <h3>Search Property</h3>
+                        <div class="input-group">
+                            <label for="property-address">Property Address</label>
+                            <div class="input-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 5.02944 7.02944 1 12 1C16.9706 1 21 5.02944 21 10Z"
+                                        stroke="currentColor" stroke-width="2" />
+                                    <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                                <input type="text" id="property-address" placeholder="Enter your property address...">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="search-radius">Search Radius: <span id="radius-value">0.5</span> miles</label>
+                            <input type="range" id="search-radius" min="0.1" max="2" step="0.1" value="0.5">
+                        </div>
+                        <button class="btn btn-primary btn-full" id="search-property">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Search Property
+                        </button>
+                        <button class="btn btn-secondary btn-full" id="reset-search">
+                            Reset
+                        </button>
+                    </div>
+
+                    <div class="sidebar-card" id="results-summary">
+                        <h3>Analysis Results</h3>
+                        <div class="summary-item">
+                            <span class="summary-label">Your Taxable Value</span>
+                            <span class="summary-value" id="your-value">$0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Avg. Comparable Value</span>
+                            <span class="summary-value" id="avg-value">$0</span>
+                        </div>
+                        <div class="summary-item highlight">
+                            <span class="summary-label">Difference</span>
+                            <span class="summary-value" id="difference-value">$0</span>
+                        </div>
+                        <div class="summary-recommendation" id="recommendation">
+                            Enter an address to see your analysis
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Export Data</h3>
+                        <button class="btn btn-secondary btn-full" id="export-csv" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Download CSV
+                        </button>
+                        <button class="btn btn-secondary btn-full" id="export-pdf" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Download PDF Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tool-main">
+                    <div class="map-container" id="property-map">
+                        <div class="map-placeholder" id="map-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 5.02944 7.02944 1 12 1C16.9706 1 21 5.02944 21 10Z"
+                                    stroke="currentColor" stroke-width="2" />
+                                <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                            <p>Enter an address to view the interactive map</p>
+                            <span class="map-hint">Map will show your property and comparable properties in the
+                                area</span>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Taxable Value Comparison</h3>
+                            <div class="chart-legend">
+                                <span class="legend-item"><span class="legend-color your"></span> Your Property</span>
+                                <span class="legend-item"><span class="legend-color avg"></span> Avg. Comparable</span>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper" id="comparison-chart">
+                            <div class="chart-placeholder">
+                                <p>Chart will appear after search</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>Comparable Properties in Radius</h3>
+                            <span class="property-count" id="property-count">0 properties found</span>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="data-table" id="comps-table">
+                                <thead>
+                                    <tr>
+                                        <th>Address</th>
+                                        <th>Taxable Value</th>
+                                        <th>Last Appeal</th>
+                                        <th>Home Size (sqft)</th>
+                                        <th>Beds</th>
+                                        <th>Baths</th>
+                                        <th>Distance</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="comps-table-body">
+                                    <tr class="placeholder-row">
+                                        <td colspan="7">Search for a property to see comparables</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 21H21M4 18H20M6 18V10M10 18V10M14 18V10M18 18V10M12 3L21 10H3L12 3Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <span>Cook County<br><span class="logo-accent">Tax Compare</span></span>
+                    </a>
+                    <p>Our mission is to lower your Cook County property taxes.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Tools</h4>
+                        <ul>
+                            <li><a href="property-tax.html">Property Tax Tool</a></li>
+                            <li><a href="roi-calculator.html">ROI Calculator</a></li>
+                            <li><a href="loan-tool.html">Loan Tool</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><a href="tel:773-715-3476">773-715-3476</a></li>
+                            <li><a href="mailto:vu@cookcountytaxcompare.com">vu@cookcountytaxcompare.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cook County Tax Compare LLC. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+    <script src="property-tax.js"></script>
+</body>
+
+</html>
